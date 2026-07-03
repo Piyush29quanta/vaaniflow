@@ -1,0 +1,7 @@
+node_modules/
+.env
+bin/
+audio_*.wav
+tts_*.wav
+exercises/
+*.txt
