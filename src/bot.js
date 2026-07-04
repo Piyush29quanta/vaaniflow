@@ -12,8 +12,8 @@ import { AudioFrame, EndFrame } from './frames.js';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const BIN_DIR = path.join(__dirname, '..', 'bin');
 
-// 500ms of 16kHz 16-bit mono PCM — a comfortable chunk size for Sarvam STT.
-const CHUNK_BYTES = 16000 * 2 * 0.5;
+// 250ms of 16kHz 16-bit mono PCM. Smaller chunks reach streaming STT sooner.
+const CHUNK_BYTES = 16000 * 2 * 0.25;
 
 export class VaaniBot {
   constructor() {

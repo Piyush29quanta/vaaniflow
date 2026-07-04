@@ -1,12 +1,12 @@
 import { TranscriptionFrame, LLMResponseChunkFrame, LLMResponseEndFrame } from '../frames.js';
 
 const BASE_URL = 'https://api.groq.com/openai/v1';
-const MODEL = 'llama-3.3-70b-versatile'; // swap to 'llama-3.1-8b-instant' for lower latency
+const MODEL = 'llama-3.1-8b-instant';
 const SYSTEM_PROMPT = `You are a helpful voice assistant. You are speaking out loud, not writing text.
 
 Rules you must follow:
-- Keep every reply under 3 sentences. Shorter is better.
-- Use natural spoken language. Contractions are fine.
+- Prefer one sentence. Use two short sentences only when necessary.
+- Use natural spoken language. Contractions are fine. Keep each sentence under eighteen words.
 - Never use markdown: no bullet points, no bold, no headers, no lists.
 - Never start with filler like "Sure!", "Certainly!", "Great question!", or "Of course!".
 - If you don't know something, say so briefly and move on.
@@ -40,7 +40,7 @@ export async function* sarvamLLM(frames, ctx, history) {
           'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ model: MODEL, messages, stream: true, max_tokens: 120 }),
+        body: JSON.stringify({ model: MODEL, messages, stream: true, max_tokens: 70 }),
       });
     } catch (err) {
       console.error('[LLM] network error:', err.message);
